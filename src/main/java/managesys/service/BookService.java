@@ -81,6 +81,6 @@ public class BookService {
 	@Transactional
     public byte[] exportAllListPdfReport() throws IOException {
     	AllListPdfReporter builder = new AllListPdfReporter();
-        return builder.makeReport(Book.findAll(bookRepository), resourceLoader.getResource("classpath:ipag.ttf").getFile());
+        return builder.makeReport(Book.findAll(bookRepository), resourceLoader.getResource("classpath:ipag.ttf").getURL().openStream());
     }
 }

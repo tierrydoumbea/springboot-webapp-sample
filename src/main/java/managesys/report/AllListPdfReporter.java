@@ -1,8 +1,8 @@
 package managesys.report;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +29,9 @@ public class AllListPdfReporter {
 	 * @param file フォントファイル
 	 * @return バイトデータ
 	 */
-	public byte[] makeReport(List<Book> datas, File file) {
+	public byte[] makeReport(List<Book> datas, InputStream stream) {
 		try {
-			return createPdf(createData(datas), file);
+			return createPdf(createData(datas), stream);
 		} catch (IOException e) {
 			return new byte[0];
 		}
@@ -44,12 +44,12 @@ public class AllListPdfReporter {
 	 * @return バイトデータ
 	 * @throws IOException
 	 */
-	private byte[] createPdf(List<ReportData> datas, File file) throws IOException {
+	private byte[] createPdf(List<ReportData> datas,  InputStream stream) throws IOException {
 		PdfDocument doc = new PdfDocument();
 
 		// フォントの読み込み
 		PdfFont font = new PdfFont();
-		font.load(file, doc);
+		font.load(stream, doc);
 		font.setFontSize(10);
 		doc.setFont(font);
 

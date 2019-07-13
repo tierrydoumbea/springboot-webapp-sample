@@ -1,7 +1,7 @@
 package managesys.report.pdf;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
@@ -19,8 +19,8 @@ public class PdfFont {
 	 * @param document PDFドキュメント
 	 * @throws IOException
 	 */
-	public void load(File file, PdfDocument document) throws IOException {
-		font = PDType0Font.load(document.getDocument(), file);
+	public void load(InputStream stream, PdfDocument document) throws IOException {
+		font = PDType0Font.load(document.getDocument(), stream);
 	}
 
 	/**
