@@ -41,6 +41,7 @@ dependencies {
     compile 'com.github.dhorions:boxable:1.5'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 	runtime "com.h2database:h2:1.4.+"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
