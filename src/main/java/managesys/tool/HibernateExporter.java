@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
@@ -22,9 +23,9 @@ import org.slf4j.LoggerFactory;
 public class HibernateExporter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HibernateExporter.class);
-    private static final String OUTPUT_FILE = "schema.sql";
-    private static final String DIALECT = "org.hibernate.dialect.H2Dialect";
-    private static final String ENTITY_PACKAGE = "managesys.model";
+    private static String outputFile = "schema.sql";
+    private static String dialect;
+    private static String entityPackage;
 
     private List<String> entityPackages;
 
@@ -33,9 +34,13 @@ public class HibernateExporter {
     }
 
     public static void main(String[] args) {
-    	new File(OUTPUT_FILE).delete();
+    	ResourceBundle rb = ResourceBundle.getBundle("application-default");
+    	dialect = rb.getString("datasource.hibernate.dialect");
+    	entityPackage = rb.getString("datasource.packageToScan");
 
-        final List<String> entityPackages = Collections.singletonList(ENTITY_PACKAGE);
+    	new File(outputFile).delete();
+
+        final List<String> entityPackages = Collections.singletonList(entityPackage);
 
         HibernateExporter exporter = new HibernateExporter(entityPackages);
         exporter.export();
@@ -43,7 +48,7 @@ public class HibernateExporter {
 
     private void export() {
         SchemaExport export = new SchemaExport();
-        export.setOutputFile(OUTPUT_FILE);
+        export.setOutputFile(outputFile);
         export.setFormat(true);
         export.setDelimiter(";");
         EnumSet<TargetType> types = EnumSet.of(TargetType.SCRIPT);
@@ -54,7 +59,7 @@ public class HibernateExporter {
     private MetadataSources createMetadataSources() {
         MetadataSources metadata = new MetadataSources(
                 new StandardServiceRegistryBuilder()
-                        .applySetting("hibernate.dialect", DIALECT)
+                        .applySetting("hibernate.dialect", dialect)
                         .build());
 
         for (String entityPackage : entityPackages) {

@@ -30,6 +30,9 @@ public class JpaConfiguration {
 	@Value("${datasource.maxPoolSize:20}")
 	private int maxPoolSize;
 
+	@Value("${datasource.packageToScan}")
+	private String packageToScan;
+
 	@Bean
 	BookRepository bookRepository() {
 		return new BookRepository();
@@ -67,7 +70,7 @@ public class JpaConfiguration {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan(new String[] { "managesys.model" });
+		factoryBean.setPackagesToScan(new String[] { packageToScan });
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		factoryBean.setJpaProperties(hibernateProperties().getProperties());
 		return factoryBean;
