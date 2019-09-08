@@ -11,6 +11,7 @@ public class HibernateProperties {
 	private String ddlAuto;
 	private boolean showSql;
 	private boolean formatSql;
+	private boolean nonContextualCreation = false;
 
 	public Properties getProperties() {
       Properties properties = new Properties();
@@ -18,6 +19,7 @@ public class HibernateProperties {
       properties.put("hibernate.hbm2ddl.auto", ddlAuto);
       properties.put("hibernate.show_sql", showSql);
       properties.put("hibernate.format_sql", formatSql);
+      properties.put("hibernate.jdbc.lob.non_contextual_creation", nonContextualCreation);
       return properties;
 	}
 
@@ -51,5 +53,13 @@ public class HibernateProperties {
 
 	public void setFormatSql(boolean formatSql) {
 		this.formatSql = formatSql;
+	}
+
+	public boolean isNonContextualCreation() {
+		return nonContextualCreation;
+	}
+
+	public void setNonContextualCreation(boolean nonContextualCreation) {
+		this.nonContextualCreation = nonContextualCreation;
 	}
 }
