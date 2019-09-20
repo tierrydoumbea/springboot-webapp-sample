@@ -54,7 +54,10 @@ public class AllListPdfReporter {
 		doc.setFont(font);
 
 		// 総ページ数を算出
-		int totalPage = (int) Math.ceil((double) datas.size() / (double) MAX_ITEMS_PAR_PAGE);
+		int totalPage = 1;
+		if (datas.size() > 0) {
+			totalPage = (int) Math.ceil((double) datas.size() / (double) MAX_ITEMS_PAR_PAGE);
+		}
 
 		// 総ページ数分出力する
 		for (int page = 0; page < totalPage; page++) {
@@ -120,10 +123,10 @@ public class AllListPdfReporter {
 	private List<ReportData> createData(List<Book> books) {
 		List<ReportData> result = new ArrayList<ReportData>();
 
-		for (Book book : books) {
+		books.stream().forEach((book) -> {
 			ReportData data = new ReportData(book);
 			result.add(data);
-		}
+		});
 
 		return result;
 	}
