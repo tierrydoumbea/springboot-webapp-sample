@@ -36,7 +36,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-aop')
 	compile "com.zaxxer:HikariCP:2.6.+"
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
-	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
 	compile 'org.apache.pdfbox:pdfbox:2.0.14'
     compile 'com.github.dhorions:boxable:1.5'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
