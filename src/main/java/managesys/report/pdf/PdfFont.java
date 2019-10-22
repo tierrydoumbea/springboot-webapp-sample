@@ -10,49 +10,49 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
  * フォントを表現するクラス
  */
 public class PdfFont {
-	private PDFont font;
-	private float size;
+    private PDFont font;
+    private float size;
 
-	/**
-	 * フォントファイル(TTF)の読み込み
-	 * @param path ファイルパス
-	 * @param document PDFドキュメント
-	 * @throws IOException
-	 */
-	public void load(InputStream stream, PdfDocument document) throws IOException {
-		font = PDType0Font.load(document.getDocument(), stream);
-	}
+    /**
+     * フォントファイル(TTF)の読み込み
+     * @param path ファイルパス
+     * @param document PDFドキュメント
+     * @throws IOException
+     */
+    public void load(InputStream stream, PdfDocument document) throws IOException {
+        font = PDType0Font.load(document.getDocument(), stream);
+    }
 
-	/**
-	 * PDフォントを取得する
-	 * @return PDフォント
-	 */
-	public PDFont getPdFont() {
-		return font;
-	}
+    /**
+     * PDフォントを取得する
+     * @return PDフォント
+     */
+    public PDFont getPdFont() {
+        return font;
+    }
 
-	/**
-	 * フォント名を取得する
-	 * @return フォント名
-	 */
-	public String getFontName() {
-		return font.getName();
-	}
+    /**
+     * フォント名を取得する
+     * @return フォント名
+     */
+    public String getFontName() {
+        return font.getName();
+    }
 
-	/**
-	 * フォントサイズを取得する
-	 * @return フォントサイズ
-	 */
-	public float getFontSize() {
-		return size;
-	}
+    /**
+     * フォントサイズを取得する
+     * @return フォントサイズ
+     */
+    public float getFontSize() {
+        return size;
+    }
 
-	/**
-	 * フォントサイズを設定する
-	 * @param size フォントサイズ
-	 */
-	public void setFontSize(float size) {
-		this.size = size;
-	}
+    /**
+     * フォントサイズを設定する
+     * @param size フォントサイズ
+     */
+    public void setFontSize(float size) {
+        this.size = size;
+    }
 
 }

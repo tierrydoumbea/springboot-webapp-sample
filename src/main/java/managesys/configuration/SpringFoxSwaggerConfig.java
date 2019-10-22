@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ConditionalOnProperty(prefix = "extension.docs.restapi", name = "enabled", matchIfMissing = false)
 public class SpringFoxSwaggerConfig {
 
-	@Bean
+    @Bean
     public Docket document() {
         return new Docket(DocumentationType.SWAGGER_2)
                     .select()
@@ -29,17 +29,17 @@ public class SpringFoxSwaggerConfig {
                     .apiInfo(apiInfo());
     }
 
-	private Predicate<String> paths() {
-		return PathSelectors.any();
-	}
+    private Predicate<String> paths() {
+        return PathSelectors.any();
+    }
 
-	private ApiInfo apiInfo() {
+    private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfoBuilder().title("springboot-webapp-sample WebAPI")
-        										.description("web api specifications")
-        										.version("1.0")
-        										.license("MIT License")
-        										.licenseUrl("https://opensource.org/licenses/MIT")
-        										.build();
+                                                .description("web api specifications")
+                                                .version("1.0")
+                                                .license("MIT License")
+                                                .licenseUrl("https://opensource.org/licenses/MIT")
+                                                .build();
         return apiInfo;
     }
 }

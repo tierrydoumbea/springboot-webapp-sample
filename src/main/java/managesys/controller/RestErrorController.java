@@ -12,19 +12,19 @@ import org.springframework.web.context.request.ServletWebRequest;
 @RestController
 public class RestErrorController implements ErrorController {
 
-	private static final String ERROR_PATH = "/error";
+    private static final String ERROR_PATH = "/error";
 
-	@Autowired
-	ErrorAttributes errorAttribute;
+    @Autowired
+    ErrorAttributes errorAttribute;
 
-	@RequestMapping(ERROR_PATH)
-	public Map<String, Object> error(ServletWebRequest request) {
-		return this.errorAttribute.getErrorAttributes(request, false);
-	}
+    @RequestMapping(ERROR_PATH)
+    public Map<String, Object> error(ServletWebRequest request) {
+        return this.errorAttribute.getErrorAttributes(request, false);
+    }
 
-	@Override
-	public String getErrorPath() {
-		return ERROR_PATH;
-	}
+    @Override
+    public String getErrorPath() {
+        return ERROR_PATH;
+    }
 
 }

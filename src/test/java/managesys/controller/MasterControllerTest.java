@@ -27,45 +27,45 @@ import managesys.service.MasterService;
 @RunWith(SpringRunner.class)
 public class MasterControllerTest extends WebTestSupport {
 
-	@Autowired
+    @Autowired
     private ObjectMapper mapper;
 
-	@MockBean
-	private MasterService masterService;
+    @MockBean
+    private MasterService masterService;
 
-	private List<Category> categoryList;
+    private List<Category> categoryList;
 
-	private List<Format> formatList;
+    private List<Format> formatList;
 
-	@Before
-	public void setup() {
-		categoryList = UinitTestSupport.generateCategoriesData();
-		formatList = UinitTestSupport.generateFormatsData();
-	}
+    @Before
+    public void setup() {
+        categoryList = UinitTestSupport.generateCategoriesData();
+        formatList = UinitTestSupport.generateFormatsData();
+    }
 
-	@Test
-	public void listCategory() throws JsonProcessingException, Exception {
-		when(masterService.findAllCategories()).thenReturn(categoryList);
+    @Test
+    public void listCategory() throws JsonProcessingException, Exception {
+        when(masterService.findAllCategories()).thenReturn(categoryList);
 
-		ResponseEntity<String> res = get("/api/master/category", String.class);
+        ResponseEntity<String> res = get("/api/master/category", String.class);
 
-		assertThat(res.getStatusCode(), is(HttpStatus.OK));
-    	assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
-    	assertEquals(res.getBody(), mapper.writeValueAsString(categoryList));
+        assertThat(res.getStatusCode(), is(HttpStatus.OK));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertEquals(res.getBody(), mapper.writeValueAsString(categoryList));
 
-		verify(masterService, atLeastOnce()).findAllCategories();
-	}
+        verify(masterService, atLeastOnce()).findAllCategories();
+    }
 
-	@Test
-	public void listFormat() throws JsonProcessingException, Exception {
-		when(masterService.findAllFormats()).thenReturn(formatList);
+    @Test
+    public void listFormat() throws JsonProcessingException, Exception {
+        when(masterService.findAllFormats()).thenReturn(formatList);
 
-		ResponseEntity<String> res = get("/api/master/format", String.class);
+        ResponseEntity<String> res = get("/api/master/format", String.class);
 
-		assertThat(res.getStatusCode(), is(HttpStatus.OK));
-    	assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
-    	assertEquals(res.getBody(), mapper.writeValueAsString(formatList));
+        assertThat(res.getStatusCode(), is(HttpStatus.OK));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertEquals(res.getBody(), mapper.writeValueAsString(formatList));
 
-		verify(masterService, atLeastOnce()).findAllFormats();
-	}
+        verify(masterService, atLeastOnce()).findAllFormats();
+    }
 }

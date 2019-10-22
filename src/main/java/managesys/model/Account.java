@@ -71,14 +71,14 @@ public class Account {
     }
 
     public static Account findByUsername(AbstractRepository repo, String name) {
-    	Specification<Account> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-			return cb.equal(root.get("name"), name);
-		};
-		return repo.findOne(Account.class, spec).orElse(null);
+        Specification<Account> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+            return cb.equal(root.get("name"), name);
+        };
+        return repo.findOne(Account.class, spec).orElse(null);
     }
 
     public void save(AbstractRepository repo) {
-    	repo.save(Account.class, this);
+        repo.save(Account.class, this);
     }
 
 }

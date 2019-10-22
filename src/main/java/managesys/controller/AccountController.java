@@ -11,14 +11,14 @@ import managesys.model.Account;
 @RequestMapping("/api/account")
 public class AccountController {
 
-	@GetMapping("/loginStatus")
-	public boolean loginStatus() {
-		return true;
-	}
+    @GetMapping("/loginStatus")
+    public boolean loginStatus() {
+        return true;
+    }
 
-	@GetMapping("/loginAccount")
-	public Account loginAccount(@AuthenticationPrincipal(expression = "account") Account account) {
-	    return account;
+    @GetMapping("/loginAccount")
+    public Account loginAccount(@AuthenticationPrincipal(expression = "account") Account account) {
+        return account;
     }
 
 }

@@ -25,48 +25,48 @@ import managesys.service.BookService;
 @RequestMapping("/api/book")
 public class BookController {
 
-	@Autowired
-	BookService service;
+    @Autowired
+    BookService service;
 
-	@GetMapping("/list")
-	@ResponseBody
-	public Page<Book> list(Pageable pageable) {
-		return service.findAllBooks(pageable);
-	}
+    @GetMapping("/list")
+    @ResponseBody
+    public Page<Book> list(Pageable pageable) {
+        return service.findAllBooks(pageable);
+    }
 
-	@PostMapping("/new")
-	@ResponseBody
-	public Book saveBook(@Valid @RequestBody Book book) {
-		service.saveBook(book);
-		return book;
-	}
+    @PostMapping("/new")
+    @ResponseBody
+    public Book saveBook(@Valid @RequestBody Book book) {
+        service.saveBook(book);
+        return book;
+    }
 
-	@PostMapping("/edit")
-	@ResponseBody
-	public Book updateBook(@Valid @RequestBody Book book) {
-		service.updateBook(book);
-		return book;
-	}
+    @PostMapping("/edit")
+    @ResponseBody
+    public Book updateBook(@Valid @RequestBody Book book) {
+        service.updateBook(book);
+        return book;
+    }
 
     @PostMapping("/delete")
     @ResponseBody
-	public Book deleteBook(@Valid @RequestBody Book book) {
+    public Book deleteBook(@Valid @RequestBody Book book) {
         Book entity = service.findById(book.getId());
-		service.deleteBook(entity);
+        service.deleteBook(entity);
 
         return entity;
     }
 
-	@GetMapping("/search")
-	@ResponseBody
-	public Page<Book> searchBook(@RequestParam String query, Pageable pageable) {
-		return service.findBookByTitle(query, pageable);
-	}
+    @GetMapping("/search")
+    @ResponseBody
+    public Page<Book> searchBook(@RequestParam String query, Pageable pageable) {
+        return service.findBookByTitle(query, pageable);
+    }
 
-	@GetMapping(path = "/allListPdfReport", produces="application/pdf")
-	@ResponseBody
-	public ResponseEntity<byte[]> getAllListPdfReport() throws IOException {
-		HttpHeaders headers = new HttpHeaders();
+    @GetMapping(path = "/allListPdfReport", produces="application/pdf")
+    @ResponseBody
+    public ResponseEntity<byte[]> getAllListPdfReport() throws IOException {
+        HttpHeaders headers = new HttpHeaders();
         headers.add("content-disposition", "inline; filename=AllListPdfReport.pdf");
         return new ResponseEntity<byte[]>(service.exportAllListPdfReport(), headers, HttpStatus.OK);
     }

@@ -16,19 +16,19 @@ import managesys.repository.BookRepository;
 @ConditionalOnProperty(prefix = "extension.test.generator", name = "enabled", matchIfMissing = false)
 public class TestDataGenerator {
 
-	@Autowired
-	private BookRepository bookRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
-	private static final int SIZE = 7;
+    private static final int SIZE = 7;
 
-	@PostConstruct
-	@Transactional
-	public void initialize() {
-		for (int i=0; i<SIZE; i++) {
-			Category c = Category.findById(bookRepository, (i+1)%3 + 1);
-			Format f = Format.findById(bookRepository, (i+1)%2 + 1);
-			Book b = new Book("Test_" + i, "123-234-567-" + i, c, f);
-			b.save(bookRepository);
-		}
-	}
+    @PostConstruct
+    @Transactional
+    public void initialize() {
+        for (int i=0; i<SIZE; i++) {
+            Category c = Category.findById(bookRepository, (i+1)%3 + 1);
+            Format f = Format.findById(bookRepository, (i+1)%2 + 1);
+            Book b = new Book("Test_" + i, "123-234-567-" + i, c, f);
+            b.save(bookRepository);
+        }
+    }
 }

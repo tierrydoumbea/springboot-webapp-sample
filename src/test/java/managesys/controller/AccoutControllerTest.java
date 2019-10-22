@@ -28,85 +28,85 @@ import managesys.service.AccountUserDetailsService;
 @RunWith(SpringRunner.class)
 public class AccoutControllerTest extends WebTestSupport {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@MockBean
-	private AccountUserDetailsService accountUserDetailsService;
+    @MockBean
+    private AccountUserDetailsService accountUserDetailsService;
 
-	private AccountUserDetails accountUserDetails;
+    private AccountUserDetails accountUserDetails;
 
-	@Before
-	public void setup() {
-		createAccountUserDetails();
-		when(accountUserDetailsService.loadUserByUsername("test")).thenReturn(accountUserDetails);
-	}
+    @Before
+    public void setup() {
+        createAccountUserDetails();
+        when(accountUserDetailsService.loadUserByUsername("test")).thenReturn(accountUserDetails);
+    }
 
-	@Test
-	public void LoginHttp200OK() {
-		ResponseEntity<Object> token = loginStatus("", "");
-		ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
+    @Test
+    public void LoginHttp200OK() {
+        ResponseEntity<Object> token = loginStatus("", "");
+        ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
 
-		assertThat(res.getStatusCode(), is(HttpStatus.OK));
-		assertThat(getSessionId(res), notNullValue());
-	}
+        assertThat(res.getStatusCode(), is(HttpStatus.OK));
+        assertThat(getSessionId(res), notNullValue());
+    }
 
-	@Test
-	public void LoginHttp400Error() {
-		ResponseEntity<Object> token = loginStatus("", "");
-		ResponseEntity<Object> res = login("test", "abcdefg", getCsrfToken(token));
+    @Test
+    public void LoginHttp400Error() {
+        ResponseEntity<Object> token = loginStatus("", "");
+        ResponseEntity<Object> res = login("test", "abcdefg", getCsrfToken(token));
 
-		assertThat(res.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-		assertThat(getSessionId(res), is(""));
-	}
+        assertThat(res.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertThat(getSessionId(res), is(""));
+    }
 
-	@Test
-	public void LogoutHttp200OK() {
-		ResponseEntity<Object> token = loginStatus("", "");
-		ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
-		res = logout(getSessionId(res), getCsrfToken(token));
+    @Test
+    public void LogoutHttp200OK() {
+        ResponseEntity<Object> token = loginStatus("", "");
+        ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
+        res = logout(getSessionId(res), getCsrfToken(token));
 
-		assertThat(res.getStatusCode(), is(HttpStatus.OK));
-	}
+        assertThat(res.getStatusCode(), is(HttpStatus.OK));
+    }
 
-	@Test
-	public void LoginStatusHttp200OK() {
-		ResponseEntity<Object> token = loginStatus("", "");
-		ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
-		ResponseEntity<Object> sres = loginStatus(getSessionId(res), getCsrfToken(token));
+    @Test
+    public void LoginStatusHttp200OK() {
+        ResponseEntity<Object> token = loginStatus("", "");
+        ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
+        ResponseEntity<Object> sres = loginStatus(getSessionId(res), getCsrfToken(token));
 
-		assertThat(sres.getStatusCode(), is(HttpStatus.OK));
-	}
+        assertThat(sres.getStatusCode(), is(HttpStatus.OK));
+    }
 
-	@Test
-	public void LoginStatusHttp401Error() {
-		ResponseEntity<Object> res = loginStatus("", "");
+    @Test
+    public void LoginStatusHttp401Error() {
+        ResponseEntity<Object> res = loginStatus("", "");
 
-		assertThat(res.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
-	}
+        assertThat(res.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
 
-	@Test
-	public void LoginAccountHttp200OK() {
-		ResponseEntity<Object> token = loginStatus("", "");
-		ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
-		ResponseEntity<String> sres = loginAccount(getSessionId(res), getCsrfToken(token));
+    @Test
+    public void LoginAccountHttp200OK() {
+        ResponseEntity<Object> token = loginStatus("", "");
+        ResponseEntity<Object> res = login("test", "test", getCsrfToken(token));
+        ResponseEntity<String> sres = loginAccount(getSessionId(res), getCsrfToken(token));
 
-		assertThat(sres.getStatusCode(), is(HttpStatus.OK));
-		assertThat(JsonPath.read(sres.getBody(), "$.name"), is("test"));
-		assertThat(sres.getBody().indexOf("password"), is(-1));
-	}
+        assertThat(sres.getStatusCode(), is(HttpStatus.OK));
+        assertThat(JsonPath.read(sres.getBody(), "$.name"), is("test"));
+        assertThat(sres.getBody().indexOf("password"), is(-1));
+    }
 
-	@Test
-	public void LoginAccountHttp401Error() {
-		ResponseEntity<String> res = loginAccount("", "");
+    @Test
+    public void LoginAccountHttp401Error() {
+        ResponseEntity<String> res = loginAccount("", "");
 
-		assertThat(res.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
-	}
+        assertThat(res.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
 
-	private void createAccountUserDetails() {
-		AccountAuthority authority = new AccountAuthority("USER");
-		Collection<AccountAuthority> authorities = new ArrayList<AccountAuthority>();
+    private void createAccountUserDetails() {
+        AccountAuthority authority = new AccountAuthority("USER");
+        Collection<AccountAuthority> authorities = new ArrayList<AccountAuthority>();
         authorities.add(authority);
         accountUserDetails = new AccountUserDetails(new Account("test", passwordEncoder.encode("test"), authorities));
-	}
+    }
 }

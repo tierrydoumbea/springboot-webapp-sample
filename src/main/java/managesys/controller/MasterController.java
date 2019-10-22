@@ -16,19 +16,19 @@ import managesys.service.MasterService;
 @RequestMapping("/api/master")
 public class MasterController {
 
-	@Autowired
-	MasterService service;
+    @Autowired
+    MasterService service;
 
-	@GetMapping("/category")
-	@ResponseBody
-	public List<Category> listCategory() {
-		return service.findAllCategories();
-	}
+    @GetMapping("/category")
+    @ResponseBody
+    public List<Category> listCategory() {
+        return service.findAllCategories();
+    }
 
-	@GetMapping("/format")
-	@ResponseBody
-	public List<Format> listFormat() {
-		return service.findAllFormats();
-	}
+    @GetMapping("/format")
+    @ResponseBody
+    public List<Format> listFormat() {
+        return service.findAllFormats();
+    }
 
 }

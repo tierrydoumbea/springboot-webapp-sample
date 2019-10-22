@@ -44,13 +44,13 @@ public class AccountUserDetails implements UserDetails {
         return account;
     }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return account.getAuthorities();
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return account.getAuthorities();
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogInterceptor {
 
-	private final Logger log;
+    private final Logger log;
 
-	public LogInterceptor() {
-		this.log = LoggerFactory.getLogger(this.getClass());
-	}
+    public LogInterceptor() {
+        this.log = LoggerFactory.getLogger(this.getClass());
+    }
 
     @Before("execution(* managesys.controller..*(..)) || execution(* managesys.service..*(..))")
     public void execBefore(JoinPoint joinPoint) {

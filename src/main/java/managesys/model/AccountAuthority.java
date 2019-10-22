@@ -44,6 +44,6 @@ public class AccountAuthority implements GrantedAuthority {
     }
 
     public void save(AbstractRepository repo) {
-    	repo.save(AccountAuthority.class, this);
+        repo.save(AccountAuthority.class, this);
     }
 }

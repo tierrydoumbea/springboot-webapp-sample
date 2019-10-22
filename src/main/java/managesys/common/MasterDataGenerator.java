@@ -21,37 +21,37 @@ import managesys.repository.BookRepository;
 @ConditionalOnProperty(prefix = "extension.master.generator", name = "enabled", matchIfMissing = false)
 public class MasterDataGenerator {
 
-	@Autowired
-	private BookRepository bookRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@PostConstruct
-	@Transactional
-	public void initialize() {
-		AccountAuthority authority = new AccountAuthority("USER");
-		authority.save(bookRepository);
+    @PostConstruct
+    @Transactional
+    public void initialize() {
+        AccountAuthority authority = new AccountAuthority("USER");
+        authority.save(bookRepository);
 
-		Collection<AccountAuthority> authorities = new ArrayList<AccountAuthority>();
-		authorities.add(authority);
-		Account account = new Account("test", passwordEncoder.encode("test"), authorities);
-		account.save(bookRepository);
+        Collection<AccountAuthority> authorities = new ArrayList<AccountAuthority>();
+        authorities.add(authority);
+        Account account = new Account("test", passwordEncoder.encode("test"), authorities);
+        account.save(bookRepository);
 
-		Category c1 = new Category("技術書");
-		c1.save(bookRepository);
+        Category c1 = new Category("技術書");
+        c1.save(bookRepository);
 
-		Category c2 = new Category("小説");
-		c2.save(bookRepository);
+        Category c2 = new Category("小説");
+        c2.save(bookRepository);
 
-		Category c3 = new Category("雑誌");
-		c3.save(bookRepository);
+        Category c3 = new Category("雑誌");
+        c3.save(bookRepository);
 
-		Format f1 = new Format("書籍");
-		f1.save(bookRepository);
+        Format f1 = new Format("書籍");
+        f1.save(bookRepository);
 
-		Format f2 = new Format("電子書籍");
-		f2.save(bookRepository);
-	}
+        Format f2 = new Format("電子書籍");
+        f2.save(bookRepository);
+    }
 
 }

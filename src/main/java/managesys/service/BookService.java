@@ -18,69 +18,69 @@ import managesys.repository.BookRepository;
 @Service("bookLogic")
 public class BookService {
 
-	@Autowired
-	private BookRepository bookRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
-	@Autowired
-	protected ResourceLoader resourceLoader;
+    @Autowired
+    protected ResourceLoader resourceLoader;
 
-	@Transactional
-	public Book findById(int id) {
-		return Book.findById(bookRepository, id);
-	}
+    @Transactional
+    public Book findById(int id) {
+        return Book.findById(bookRepository, id);
+    }
 
-	@Transactional
-	public void saveBook(Book book) {
-		Category category = Category.findById(bookRepository, book.getCategory().getId());
-		book.setCategory(category);
+    @Transactional
+    public void saveBook(Book book) {
+        Category category = Category.findById(bookRepository, book.getCategory().getId());
+        book.setCategory(category);
 
-		Format format = Format.findById(bookRepository, book.getFormat().getId());
-		book.setFormat(format);
+        Format format = Format.findById(bookRepository, book.getFormat().getId());
+        book.setFormat(format);
 
-		book.save(bookRepository);
-	}
+        book.save(bookRepository);
+    }
 
-	@Transactional
-	public void updateBook(Book book) {
-		Book entity = Book.findById(bookRepository, book.getId());
+    @Transactional
+    public void updateBook(Book book) {
+        Book entity = Book.findById(bookRepository, book.getId());
 
-		if(entity != null) {
-			entity.setTitle(book.getTitle());
-			entity.setIsbn(book.getIsbn());
+        if(entity != null) {
+            entity.setTitle(book.getTitle());
+            entity.setIsbn(book.getIsbn());
 
-			Category category = Category.findById(bookRepository, book.getCategory().getId());
-		    entity.setCategory(category);
+            Category category = Category.findById(bookRepository, book.getCategory().getId());
+            entity.setCategory(category);
 
-		    Format format = Format.findById(bookRepository, book.getFormat().getId());
-		    entity.setFormat(format);
+            Format format = Format.findById(bookRepository, book.getFormat().getId());
+            entity.setFormat(format);
 
-		    entity.save(bookRepository);
-		}
-	}
+            entity.save(bookRepository);
+        }
+    }
 
-	@Transactional
-	public void deleteBook(Book book) {
-		book.delete(bookRepository);
-	}
+    @Transactional
+    public void deleteBook(Book book) {
+        book.delete(bookRepository);
+    }
 
-	@Transactional
-	public Page<Book> findAllBooks(Pageable pageable) {
-		return Book.findAll(bookRepository, pageable);
-	}
+    @Transactional
+    public Page<Book> findAllBooks(Pageable pageable) {
+        return Book.findAll(bookRepository, pageable);
+    }
 
-	@Transactional
-	public Book findBookByIsbn(String isbn) {
-		return Book.findByIsbn(bookRepository, isbn);
-	}
+    @Transactional
+    public Book findBookByIsbn(String isbn) {
+        return Book.findByIsbn(bookRepository, isbn);
+    }
 
-	@Transactional
-	public Page<Book> findBookByTitle(String keyword, Pageable pageable) {
-		return Book.findByTitle(bookRepository, keyword, pageable);
-	}
+    @Transactional
+    public Page<Book> findBookByTitle(String keyword, Pageable pageable) {
+        return Book.findByTitle(bookRepository, keyword, pageable);
+    }
 
-	@Transactional
+    @Transactional
     public byte[] exportAllListPdfReport() throws IOException {
-    	AllListPdfReporter builder = new AllListPdfReporter();
+        AllListPdfReporter builder = new AllListPdfReporter();
         return builder.makeReport(Book.findAll(bookRepository), resourceLoader.getResource("classpath:ipag.ttf").getURL().openStream());
     }
 }

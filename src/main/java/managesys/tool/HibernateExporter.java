@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 // @see https://stackoverflow.com/questions/33700123/hibernate-5-generate-sql-ddl-into-file
 public class HibernateExporter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(HibernateExporter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateExporter.class);
     private static String outputFile = "schema.sql";
     private static String dialect;
     private static String entityPackage;
@@ -34,11 +34,11 @@ public class HibernateExporter {
     }
 
     public static void main(String[] args) {
-    	ResourceBundle rb = ResourceBundle.getBundle("application-default");
-    	dialect = rb.getString("datasource.hibernate.dialect");
-    	entityPackage = rb.getString("datasource.packageToScan");
+        ResourceBundle rb = ResourceBundle.getBundle("application-default");
+        dialect = rb.getString("datasource.hibernate.dialect");
+        entityPackage = rb.getString("datasource.packageToScan");
 
-    	new File(outputFile).delete();
+        new File(outputFile).delete();
 
         final List<String> entityPackages = Collections.singletonList(entityPackage);
 

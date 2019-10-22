@@ -30,39 +30,39 @@ public class Format {
         this.name = name;
     }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public static Format findById(AbstractRepository repo, int id) {
-		return repo.findById(Format.class, id).orElse(null);
-	}
+    public static Format findById(AbstractRepository repo, int id) {
+        return repo.findById(Format.class, id).orElse(null);
+    }
 
-	public static List<Format> findAll(AbstractRepository repo) {
-		return repo.findAll(Format.class);
-	}
+    public static List<Format> findAll(AbstractRepository repo) {
+        return repo.findAll(Format.class);
+    }
 
-	public void save(AbstractRepository repo) {
-		repo.save(Format.class, this);
-	}
+    public void save(AbstractRepository repo) {
+        repo.save(Format.class, this);
+    }
 
-	public static Format findByName(AbstractRepository repo, String name) {
-		Specification<Format> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-			return cb.equal(root.get("name"), name);
-		};
-		return repo.findOne(Format.class, spec).orElse(null);
-	}
+    public static Format findByName(AbstractRepository repo, String name) {
+        Specification<Format> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+            return cb.equal(root.get("name"), name);
+        };
+        return repo.findOne(Format.class, spec).orElse(null);
+    }
 
 }

@@ -30,38 +30,38 @@ public class Category {
         this.name = name;
     }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public static Category findById(AbstractRepository repo, int id) {
-		return repo.findById(Category.class, id).orElse(null);
-	}
+    public static Category findById(AbstractRepository repo, int id) {
+        return repo.findById(Category.class, id).orElse(null);
+    }
 
-	public static List<Category> findAll(AbstractRepository repo) {
-		return repo.findAll(Category.class);
-	}
+    public static List<Category> findAll(AbstractRepository repo) {
+        return repo.findAll(Category.class);
+    }
 
-	public void save(AbstractRepository repo) {
-		repo.save(Category.class, this);
-	}
+    public void save(AbstractRepository repo) {
+        repo.save(Category.class, this);
+    }
 
-	public static Category findByName(AbstractRepository repo, String name) {
-		Specification<Category> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-			return cb.equal(root.get("name"), name);
-		};
-		return repo.findOne(Category.class, spec).orElse(null);
-	}
+    public static Category findByName(AbstractRepository repo, String name) {
+        Specification<Category> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+            return cb.equal(root.get("name"), name);
+        };
+        return repo.findOne(Category.class, spec).orElse(null);
+    }
 }

@@ -27,78 +27,78 @@ import managesys.repository.BookRepository;
 @EnableTransactionManagement
 public class JpaConfiguration {
 
-	@Value("${datasource.maxPoolSize:20}")
-	private int maxPoolSize;
+    @Value("${datasource.maxPoolSize:20}")
+    private int maxPoolSize;
 
-	@Value("${datasource.packageToScan}")
-	private String packageToScan;
+    @Value("${datasource.packageToScan}")
+    private String packageToScan;
 
-	@Bean
-	BookRepository bookRepository() {
-		return new BookRepository();
-	}
+    @Bean
+    BookRepository bookRepository() {
+        return new BookRepository();
+    }
 
-	@Bean
-	@Primary
-	@ConfigurationProperties(prefix = "datasource")
-	public DataSourceProperties dataSourceProperties(){
-		return new DataSourceProperties();
-	}
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "datasource")
+    public DataSourceProperties dataSourceProperties(){
+        return new DataSourceProperties();
+    }
 
-	/*
-	 * HikariCPでプールさせるデータソースを設定する。
-	 */
-	@Bean
-	public DataSource dataSource() {
-		DataSourceProperties dataSourceProperties = dataSourceProperties();
-		HikariDataSource dataSource = (HikariDataSource) DataSourceBuilder
-				.create(dataSourceProperties.getClassLoader())
-				.driverClassName(dataSourceProperties.getDriverClassName())
-				.url(dataSourceProperties.getUrl())
-				.username(dataSourceProperties.getUsername())
-				.password(dataSourceProperties.getPassword())
-				.type(HikariDataSource.class)
-				.build();
-		dataSource.setMaximumPoolSize(maxPoolSize);
-		return dataSource;
-	}
+    /*
+     * HikariCPでプールさせるデータソースを設定する。
+     */
+    @Bean
+    public DataSource dataSource() {
+        DataSourceProperties dataSourceProperties = dataSourceProperties();
+        HikariDataSource dataSource = (HikariDataSource) DataSourceBuilder
+                .create(dataSourceProperties.getClassLoader())
+                .driverClassName(dataSourceProperties.getDriverClassName())
+                .url(dataSourceProperties.getUrl())
+                .username(dataSourceProperties.getUsername())
+                .password(dataSourceProperties.getPassword())
+                .type(HikariDataSource.class)
+                .build();
+        dataSource.setMaximumPoolSize(maxPoolSize);
+        return dataSource;
+    }
 
-	/*
-	 * Entity Manager Factoryを生成する。
-	 */
-	@Bean(name = "entityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
-		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan(new String[] { packageToScan });
-		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-		factoryBean.setJpaProperties(hibernateProperties().getProperties());
-		return factoryBean;
-	}
+    /*
+     * Entity Manager Factoryを生成する。
+     */
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+        factoryBean.setDataSource(dataSource());
+        factoryBean.setPackagesToScan(new String[] { packageToScan });
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+        factoryBean.setJpaProperties(hibernateProperties().getProperties());
+        return factoryBean;
+    }
 
-	/*
-	 * Hibernate用のアダプタを設定する。
-	 */
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		return hibernateJpaVendorAdapter;
-	}
+    /*
+     * Hibernate用のアダプタを設定する。
+     */
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+        return hibernateJpaVendorAdapter;
+    }
 
-	/*
-	 * Hibernateの設定を有効化する
-	 */
-	@Bean
-	public HibernateProperties hibernateProperties() {
-		return new HibernateProperties();
-	}
+    /*
+     * Hibernateの設定を有効化する
+     */
+    @Bean
+    public HibernateProperties hibernateProperties() {
+        return new HibernateProperties();
+    }
 
-	@Bean(name = "transactionManager")
-	@Autowired
-	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(emf);
-		return txManager;
-	}
+    @Bean(name = "transactionManager")
+    @Autowired
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(emf);
+        return txManager;
+    }
 
 }
