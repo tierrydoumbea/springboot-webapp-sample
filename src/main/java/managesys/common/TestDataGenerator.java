@@ -24,9 +24,9 @@ public class TestDataGenerator {
     @PostConstruct
     @Transactional
     public void initialize() {
-        for (int i=0; i<SIZE; i++) {
-            Category c = Category.findById(bookRepository, (i+1)%3 + 1);
-            Format f = Format.findById(bookRepository, (i+1)%2 + 1);
+        for (int i = 0; i < SIZE; i++) {
+            Category c = Category.findById(bookRepository, (i + 1) % 3 + 1);
+            Format f = Format.findById(bookRepository, (i + 1) % 2 + 1);
             Book b = new Book("Test_" + i, "123-234-567-" + i, c, f);
             b.save(bookRepository);
         }

@@ -65,7 +65,7 @@ public class RestErrorHandler {
         Map<String, String> errors = new HashMap<String, String>();
 
         e.getConstraintViolations().forEach(v -> {
-             errors.put(v.getPropertyPath().toString(), v.getMessage());
+            errors.put(v.getPropertyPath().toString(), v.getMessage());
         });
 
         return ResponseEntity.badRequest().body(errors);
@@ -85,8 +85,8 @@ public class RestErrorHandler {
         Map<String, String> errorList = new HashMap<String, String>();
 
         objectErrors.forEach(objectError -> {
-            if (objectError instanceof FieldError){
-                FieldError fieldError = (FieldError)objectError;
+            if (objectError instanceof FieldError) {
+                FieldError fieldError = (FieldError) objectError;
                 errorList.put(fieldError.getField(), messageSource.getMessage(fieldError, null));
             }
         });

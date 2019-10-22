@@ -25,8 +25,9 @@ public class AllListPdfReporter {
 
     /**
      * PDF出力
+     *
      * @param datas 出力用のデータ
-     * @param file フォントファイル
+     * @param file  フォントファイル
      * @return バイトデータ
      */
     public byte[] makeReport(List<Book> datas, InputStream stream) {
@@ -39,12 +40,13 @@ public class AllListPdfReporter {
 
     /**
      * PDF生成
+     *
      * @param datas 出力用のデータ
-     * @param file フォントファイル
+     * @param file  フォントファイル
      * @return バイトデータ
      * @throws IOException
      */
-    private byte[] createPdf(List<ReportData> datas,  InputStream stream) throws IOException {
+    private byte[] createPdf(List<ReportData> datas, InputStream stream) throws IOException {
         PdfDocument doc = new PdfDocument();
 
         // フォントの読み込み
@@ -68,7 +70,7 @@ public class AllListPdfReporter {
             createHeader(table);
 
             // 最大行数分出力
-            for(int i=0; i<MAX_ITEMS_PAR_PAGE; i++) {
+            for (int i = 0; i < MAX_ITEMS_PAR_PAGE; i++) {
                 if (i + page * MAX_ITEMS_PAR_PAGE < datas.size()) {
                     // 奇数行と偶数行でセル背景色を変更
                     if (i % 2 == 0) {
@@ -87,6 +89,7 @@ public class AllListPdfReporter {
 
     /**
      * ヘッダー行を出力
+     *
      * @param table
      */
     private void createHeader(PdfTable table) {
@@ -100,8 +103,9 @@ public class AllListPdfReporter {
 
     /**
      * テーブル行を出力
+     *
      * @param table テーブル
-     * @param data 出力データ
+     * @param data  出力データ
      * @param isOdd 偶数行かどうか
      */
     private void createRow(PdfTable table, ReportData data, boolean isOdd) {
@@ -117,6 +121,7 @@ public class AllListPdfReporter {
 
     /**
      * 帳票出力用データを生成
+     *
      * @param books DBデータ
      * @return 帳票出力用データ
      */
@@ -143,6 +148,7 @@ public class AllListPdfReporter {
 
         /**
          * コンストラクタ
+         *
          * @param data DBデータ
          */
         public ReportData(Book data) {
@@ -157,15 +163,19 @@ public class AllListPdfReporter {
         public String getId() {
             return id;
         }
+
         public String getTitle() {
             return title;
         }
+
         public String getIsbn() {
             return isbn;
         }
+
         public String getCategory() {
             return category;
         }
+
         public String getFormat() {
             return format;
         }

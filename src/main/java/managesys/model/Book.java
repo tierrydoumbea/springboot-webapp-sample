@@ -23,10 +23,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min=3, max=50)
+    @Size(min = 3, max = 50)
     private String title;
 
-    @Size(min=10, max=20)
+    @Size(min = 10, max = 20)
     private String isbn;
 
     @ManyToOne(fetch = FetchType.EAGER)

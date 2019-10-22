@@ -24,7 +24,7 @@ public class MasterService {
 
     @Transactional
     public void registerCategory(Category category) {
-        if(!isExistCategory(category)) {
+        if (!isExistCategory(category)) {
             category.save(bookRepository);
         }
     }

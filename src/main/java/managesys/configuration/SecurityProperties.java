@@ -6,9 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SecurityProperties {
 
     /** 認証対象のURI */
-    private String[] path = new String[] {"/api/**"};
+    private String[] path = new String[] { "/api/**" };
     /** 認証除外対象のURI */
-    private String[] exculdePath = new String[] {"/api/health"};
+    private String[] exculdePath = new String[] { "/api/health" };
     /** ログインURI */
     private String loginPath = "/api/account/login";
     /** ログアウトURI */

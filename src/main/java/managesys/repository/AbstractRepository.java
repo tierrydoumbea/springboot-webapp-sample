@@ -237,7 +237,7 @@ public abstract class AbstractRepository {
         }
 
         ByIdsSpecification<T> specification = new ByIdsSpecification<T>(RepositoryUtils.entityInformation(em(), clazz));
-        TypedQuery<T> query = getQuery(clazz, specification, (Sort) null);
+        TypedQuery<T> query = getQuery(clazz, specification, Sort.unsorted());
 
         return query.setParameter(specification.parameter, ids).getResultList();
     }

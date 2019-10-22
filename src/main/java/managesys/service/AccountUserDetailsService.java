@@ -21,10 +21,10 @@ public class AccountUserDetailsService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         Account account = Optional.ofNullable(Account.findByUsername(bookRepository, username))
-                                     .orElseThrow(() -> new UsernameNotFoundException("user not found."));
+        Account account = Optional.ofNullable(Account.findByUsername(bookRepository, username))
+                                .orElseThrow(() -> new UsernameNotFoundException("user not found."));
 
-         return new AccountUserDetails(account);
+        return new AccountUserDetails(account);
     }
 
 }

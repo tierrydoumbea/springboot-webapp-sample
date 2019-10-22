@@ -20,16 +20,16 @@ public class LogInterceptor {
 
     @Before("execution(* managesys.controller..*(..)) || execution(* managesys.service..*(..))")
     public void execBefore(JoinPoint joinPoint) {
-         methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "Start");
+        methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "Start");
     }
 
     @After("execution(* managesys.controller..*(..)) || execution(* managesys.service..*(..))")
     public void execAfter(JoinPoint joinPoint) {
-         methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "End");
+        methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "End");
     }
 
-    private void methodLog(String className, String methodName, String message){
-         log.info(className + "." + methodName + "() " + message + ".");
+    private void methodLog(String className, String methodName, String message) {
+        log.info(className + "." + methodName + "() " + message + ".");
     }
 
 }

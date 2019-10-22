@@ -29,7 +29,8 @@ public class PdfDocument {
 
     /**
      * ページの新規作成
-     * @param size 用紙サイズ
+     *
+     * @param size     用紙サイズ
      * @param isRotate 用紙向き(true: 横向き)
      * @throws IOException
      */
@@ -48,14 +49,15 @@ public class PdfDocument {
         // 生成したドキュメントに対して出力するストリームを生成
         stream = new PDPageContentStream(document, currentPage);
 
-        if(this.isRotate) {
-            //コンテンツを反時計回りに90度回転させます
+        if (this.isRotate) {
+            // コンテンツを反時計回りに90度回転させます
             stream.transform(new Matrix(0, 1, -1, 0, currentPage.getMediaBox().getWidth(), 0));
         }
     }
 
     /**
      * バイト配列として出力する
+     *
      * @return バイト配列
      * @throws IOException
      */
@@ -70,6 +72,7 @@ public class PdfDocument {
 
     /**
      * ファイルとして出力する
+     *
      * @param fileName ファイル名
      * @throws IOException
      */
@@ -82,6 +85,7 @@ public class PdfDocument {
 
     /**
      * 用紙の高さを取得する
+     *
      * @return 用紙の高さ
      */
     public float getPageHight() {
@@ -91,6 +95,7 @@ public class PdfDocument {
 
     /**
      * 用紙の幅を取得する
+     *
      * @return 用紙の幅
      */
     public float getPageWidth() {
@@ -100,6 +105,7 @@ public class PdfDocument {
 
     /**
      * 現在の出力ページを取得する
+     *
      * @return ページ
      */
     public PDPage getCurrentPage() {
@@ -108,6 +114,7 @@ public class PdfDocument {
 
     /**
      * ストリームを取得する
+     *
      * @return ストリーム
      */
     public PDPageContentStream getContentStream() {
@@ -116,6 +123,7 @@ public class PdfDocument {
 
     /**
      * PDドキュメントを取得する
+     *
      * @return PDドキュメント
      */
     public PDDocument getDocument() {
@@ -124,6 +132,7 @@ public class PdfDocument {
 
     /**
      * PDフォントを取得する
+     *
      * @return PDフォント
      */
     public PdfFont getFont() {
@@ -132,6 +141,7 @@ public class PdfDocument {
 
     /**
      * PDFフォントを設定する
+     *
      * @param font PDFフォント
      */
     public void setFont(PdfFont font) {

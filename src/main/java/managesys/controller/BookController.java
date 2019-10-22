@@ -63,7 +63,7 @@ public class BookController {
         return service.findBookByTitle(query, pageable);
     }
 
-    @GetMapping(path = "/allListPdfReport", produces="application/pdf")
+    @GetMapping(path = "/allListPdfReport", produces = "application/pdf")
     @ResponseBody
     public ResponseEntity<byte[]> getAllListPdfReport() throws IOException {
         HttpHeaders headers = new HttpHeaders();

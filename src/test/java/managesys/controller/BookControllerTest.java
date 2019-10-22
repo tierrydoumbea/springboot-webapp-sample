@@ -59,7 +59,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<String> res = get(url, String.class);
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(res.getBody(), mapper.writeValueAsString(page));
     }
 
@@ -71,7 +71,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<Object> res = post("/api/book/new", mapper.writeValueAsString(book));
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_0");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-0");
 
@@ -86,7 +86,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<Object> res = post("/api/book/new", mapper.writeValueAsString(book));
 
         assertThat(res.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "書籍タイトルは3文字以上，50文字以下で入力してください");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "ISBNは10文字以上，20文字以下で入力してください");
 
@@ -101,7 +101,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<Object> res = post("/api/book/edit", mapper.writeValueAsString(book));
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_0");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-0");
 
@@ -116,7 +116,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<Object> res = post("/api/book/edit", mapper.writeValueAsString(book));
 
         assertThat(res.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "書籍タイトルは3文字以上，50文字以下で入力してください");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "ISBNは10文字以上，20文字以下で入力してください");
 
@@ -140,7 +140,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<String> res = get(url, String.class);
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(res.getBody(), mapper.writeValueAsString(page));
     }
 
@@ -153,7 +153,7 @@ public class BookControllerTest extends WebTestSupport {
         ResponseEntity<Object> res = post("/api/book/delete", mapper.writeValueAsString(book));
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_2");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-2");
 

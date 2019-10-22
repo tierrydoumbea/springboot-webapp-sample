@@ -23,7 +23,7 @@ public class AccountAuthority implements GrantedAuthority {
     public AccountAuthority() {}
 
     public AccountAuthority(String authority) {
-         setAuthority(authority);
+        setAuthority(authority);
     }
 
     public int getId() {
@@ -31,16 +31,16 @@ public class AccountAuthority implements GrantedAuthority {
     }
 
     public void setAuthority(String authority) {
-         if(authority.startsWith("ROLE_")) {
-              this.authority = authority;
-         } else {
-              this.authority = "ROLE_" + authority;
-         }
+        if (authority.startsWith("ROLE_")) {
+            this.authority = authority;
+        } else {
+            this.authority = "ROLE_" + authority;
+        }
     }
 
     @Override
     public String getAuthority() {
-         return authority;
+        return authority;
     }
 
     public void save(AbstractRepository repo) {

@@ -40,19 +40,19 @@ public class BookServiceTest {
         f = new Format("f1");
         f.save(bookRepository);
 
-        books = new Book[]{new Book("test1", "123-123-123-1", c, f),
+        books = new Book[] { new Book("test1", "123-123-123-1", c, f),
                 new Book("test2", "223-123-123-1", c, f),
                 new Book("test3", "323-123-123-1", c, f),
                 new Book("test4", "423-123-123-1", c, f),
                 new Book("test5", "523-123-123-1", c, f),
                 new Book("test6", "623-123-123-1", c, f),
-                new Book("test7", "723-123-123-1", c, f)};
+                new Book("test7", "723-123-123-1", c, f) };
         saveBooks(books);
         bookRepository.flush();
     }
 
     private void saveBooks(Book... books) {
-        for(Book b : books) {
+        for (Book b : books) {
             b.save(bookRepository);
         }
     }
@@ -90,7 +90,7 @@ public class BookServiceTest {
         bookRepository.flush();
 
         // 保存したデータが存在することを確認する。
-        Book book = Book.findById(bookRepository, 8);
+        Book book = Book.findByTitle(bookRepository, "test8", PageRequest.of(0, 5)).getContent().get(0);
         assertEquals(book.getTitle(), "test8");
         assertEquals(book.getIsbn(), "823-123-123-1");
         assertEquals(book.getCategory().getName(), "c1");

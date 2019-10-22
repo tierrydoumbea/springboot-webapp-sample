@@ -41,7 +41,7 @@ public class JpaConfiguration {
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "datasource")
-    public DataSourceProperties dataSourceProperties(){
+    public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
 

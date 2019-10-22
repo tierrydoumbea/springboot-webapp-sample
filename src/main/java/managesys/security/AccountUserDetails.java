@@ -22,7 +22,7 @@ public class AccountUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-         return account.getName();
+        return account.getName();
     }
 
     @Override

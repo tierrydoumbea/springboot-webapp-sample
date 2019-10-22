@@ -39,19 +39,19 @@ public class RepositoryTest {
         Format f = new Format("f1");
         f.save(repo);
 
-        Book[] books = {new Book("test1", "123-123-123-1", c, f),
+        Book[] books = { new Book("test1", "123-123-123-1", c, f),
                 new Book("test2", "223-123-123-1", c, f),
                 new Book("test3", "323-123-123-1", c, f),
                 new Book("test4", "423-123-123-1", c, f),
                 new Book("test5", "523-123-123-1", c, f),
                 new Book("test6", "623-123-123-1", c, f),
-                new Book("test7", "723-123-123-1", c, f)};
+                new Book("test7", "723-123-123-1", c, f) };
         saveBooks(books);
         repo.flush();
     }
 
     private void saveBooks(Book... books) {
-        for(Book b : books) {
+        for (Book b : books) {
             b.save(repo);
         }
     }
@@ -79,7 +79,7 @@ public class RepositoryTest {
     @Test
     @Transactional
     public void testSort() {
-        Page<Book> result = repo.find("from BOOK b", Book.class, new Sort(Sort.Direction.DESC, "id"));
+        Page<Book> result = repo.find("from BOOK b", Book.class, Sort.by(Sort.Direction.DESC, "id"));
 
         List<Book> list = result.getContent();
         assertTrue(list.get(0).getId() > list.get(list.size() - 1).getId());
@@ -96,7 +96,8 @@ public class RepositoryTest {
     @Test
     @Transactional
     public void testParameterAndSort() {
-        Page<Book> result = repo.find("from BOOK b where b.title like ?1", Book.class, new Sort(Sort.Direction.DESC, "id"), "%test%");
+        Page<Book> result = repo.find("from BOOK b where b.title like ?1", Book.class,
+                Sort.by(Sort.Direction.DESC, "id"), "%test%");
 
         List<Book> list = result.getContent();
         assertTrue(list.get(0).getId() > list.get(list.size() - 1).getId());
@@ -115,7 +116,8 @@ public class RepositoryTest {
     @Test
     @Transactional
     public void testParameterAndPagingAndSort() {
-        Page<Book> result = repo.find("from BOOK b where b.title like ?1", Book.class, PageRequest.of(0, 5, Direction.DESC, "id"), "%test%");
+        Page<Book> result = repo.find("from BOOK b where b.title like ?1", Book.class,
+                PageRequest.of(0, 5, Direction.DESC, "id"), "%test%");
 
         List<Book> list = result.getContent();
         assertEquals(list.size(), 5);

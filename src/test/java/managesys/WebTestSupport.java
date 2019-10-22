@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class WebTestSupport {
 
     @Autowired
@@ -52,32 +52,26 @@ public class WebTestSupport {
 
     public ResponseEntity<Object> formPost(String url, String body, String session, String token) {
         RequestEntity<Object> req = RequestEntity.post(URI.create(url))
-                                    .header("Content-Type", "application/x-www-form-urlencoded")
-                                    .header("Cookie", "XSRF-TOKEN=" + token + "; " + session)
-                                    .header("X-XSRF-TOKEN", token)
-                                    .body(body);
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Cookie", "XSRF-TOKEN=" + token + "; " + session).header("X-XSRF-TOKEN", token).body(body);
         return rest.exchange(req, Object.class);
     }
 
     public ResponseEntity<Object> jsonPost(String url, String body, String session, String token) {
         RequestEntity<Object> req = RequestEntity.post(URI.create(url))
-                                    .header("Content-Type", "application/json;charset=UTF-8")
-                                    .header("Cookie", "XSRF-TOKEN=" + token + "; " + session)
-                                    .header("X-XSRF-TOKEN", token)
-                                    .body(body);
+                .header("Content-Type", "application/json;charset=UTF-8")
+                .header("Cookie", "XSRF-TOKEN=" + token + "; " + session).header("X-XSRF-TOKEN", token).body(body);
         return rest.exchange(req, Object.class);
     }
 
     public <T> ResponseEntity<T> get(String url, String session, Class<T> responseType, String token) {
         RequestEntity<Void> req = RequestEntity.get(URI.create(url))
-                                    .header("Cookie", "XSRF-TOKEN=" + token + "; " + session)
-                                    .header("X-XSRF-TOKEN", token)
-                                    .build();
+                .header("Cookie", "XSRF-TOKEN=" + token + "; " + session).header("X-XSRF-TOKEN", token).build();
         return rest.exchange(req, responseType);
     }
 
     public String getSessionId(ResponseEntity<Object> res) {
-        if(res.getStatusCode() == HttpStatus.OK) {
+        if (res.getStatusCode() == HttpStatus.OK) {
             String strCookie = res.getHeaders().get("Set-Cookie").get(2);
             return strCookie.substring(0, strCookie.indexOf(";"));
         }
@@ -85,7 +79,7 @@ public class WebTestSupport {
     }
 
     public String getCsrfToken(ResponseEntity<Object> res) {
-        if(res.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+        if (res.getStatusCode() == HttpStatus.UNAUTHORIZED) {
             String strCookie = res.getHeaders().get("Set-Cookie").get(0);
             String strToken = strCookie.substring(0, strCookie.indexOf(";"));
             return strToken.substring(strToken.indexOf("=") + 1, strToken.length());

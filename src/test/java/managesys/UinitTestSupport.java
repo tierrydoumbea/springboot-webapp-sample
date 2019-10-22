@@ -21,9 +21,9 @@ public class UinitTestSupport {
         List<Category> categoryList = generateCategoriesData();
         List<Format> formatList = generateFormatsData();
 
-        for (int i=0; i<SIZE; i++) {
-            Category c = categoryList.get((i+1)%3);
-            Format f = formatList.get((i+1)%2);
+        for (int i = 0; i < SIZE; i++) {
+            Category c = categoryList.get((i + 1) % 3);
+            Format f = formatList.get((i + 1) % 2);
             bookList.add(new Book("Test_" + i, "123-234-567-" + i, c, f));
         }
 

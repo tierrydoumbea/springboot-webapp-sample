@@ -50,7 +50,7 @@ public class MasterControllerTest extends WebTestSupport {
         ResponseEntity<String> res = get("/api/master/category", String.class);
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(res.getBody(), mapper.writeValueAsString(categoryList));
 
         verify(masterService, atLeastOnce()).findAllCategories();
@@ -63,7 +63,7 @@ public class MasterControllerTest extends WebTestSupport {
         ResponseEntity<String> res = get("/api/master/format", String.class);
 
         assertThat(res.getStatusCode(), is(HttpStatus.OK));
-        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json;charset=UTF-8"));
+        assertThat(res.getHeaders().get("Content-Type").get(0), is("application/json"));
         assertEquals(res.getBody(), mapper.writeValueAsString(formatList));
 
         verify(masterService, atLeastOnce()).findAllFormats();

@@ -14,13 +14,13 @@ public class HibernateProperties {
     private boolean nonContextualCreation = false;
 
     public Properties getProperties() {
-      Properties properties = new Properties();
-      properties.put("hibernate.dialect", dialect);
-      properties.put("hibernate.hbm2ddl.auto", ddlAuto);
-      properties.put("hibernate.show_sql", showSql);
-      properties.put("hibernate.format_sql", formatSql);
-      properties.put("hibernate.jdbc.lob.non_contextual_creation", nonContextualCreation);
-      return properties;
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.hbm2ddl.auto", ddlAuto);
+        properties.put("hibernate.show_sql", showSql);
+        properties.put("hibernate.format_sql", formatSql);
+        properties.put("hibernate.jdbc.lob.non_contextual_creation", nonContextualCreation);
+        return properties;
     }
 
     public String getDialect() {

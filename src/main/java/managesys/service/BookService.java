@@ -44,7 +44,7 @@ public class BookService {
     public void updateBook(Book book) {
         Book entity = Book.findById(bookRepository, book.getId());
 
-        if(entity != null) {
+        if (entity != null) {
             entity.setTitle(book.getTitle());
             entity.setIsbn(book.getIsbn());
 

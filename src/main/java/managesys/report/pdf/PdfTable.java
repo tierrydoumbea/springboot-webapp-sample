@@ -28,8 +28,9 @@ public class PdfTable {
 
     /**
      * コンストラクタ
+     *
      * @param document PDFドキュメント
-     * @param margin 余白
+     * @param margin   余白
      * @throws IOException
      */
     public PdfTable(PdfDocument document, float margin) throws IOException {
@@ -47,18 +48,21 @@ public class PdfTable {
 
     /**
      * 行を追加する
-     * @param height 行の高さ
+     *
+     * @param height   行の高さ
      * @param isHeader ヘッダーかどうか
      */
     public void createRow(float height, boolean isHeader) {
         currentRow = table.createRow(height);
-        if (isHeader) table.addHeaderRow(currentRow);
+        if (isHeader)
+            table.addHeaderRow(currentRow);
     }
 
     /**
      * セルを追加する
-     * @param width セルの幅
-     * @param value セルの値
+     *
+     * @param width     セルの幅
+     * @param value     セルの値
      * @param backColor セルの背景色
      */
     public void createCell(float width, String value, Color backColor) {
@@ -79,6 +83,7 @@ public class PdfTable {
 
     /**
      * テーブルを描画する
+     *
      * @throws IOException
      */
     public void drawTable() throws IOException {
@@ -87,7 +92,8 @@ public class PdfTable {
 
     /**
      * セルを取得する
-     * @param rowNum 行数
+     *
+     * @param rowNum    行数
      * @param columnNum 列数
      * @return セル
      */
@@ -98,6 +104,7 @@ public class PdfTable {
 
     /**
      * 行を取得する
+     *
      * @param rowNum 行数
      * @return 行
      */

@@ -15,7 +15,8 @@ public class PdfFont {
 
     /**
      * フォントファイル(TTF)の読み込み
-     * @param path ファイルパス
+     *
+     * @param path     ファイルパス
      * @param document PDFドキュメント
      * @throws IOException
      */
@@ -25,6 +26,7 @@ public class PdfFont {
 
     /**
      * PDフォントを取得する
+     *
      * @return PDフォント
      */
     public PDFont getPdFont() {
@@ -33,6 +35,7 @@ public class PdfFont {
 
     /**
      * フォント名を取得する
+     *
      * @return フォント名
      */
     public String getFontName() {
@@ -41,6 +44,7 @@ public class PdfFont {
 
     /**
      * フォントサイズを取得する
+     *
      * @return フォントサイズ
      */
     public float getFontSize() {
@@ -49,6 +53,7 @@ public class PdfFont {
 
     /**
      * フォントサイズを設定する
+     *
      * @param size フォントサイズ
      */
     public void setFontSize(float size) {
