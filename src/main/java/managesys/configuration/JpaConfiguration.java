@@ -33,6 +33,9 @@ public class JpaConfiguration {
     @Value("${datasource.packageToScan}")
     private String packageToScan;
 
+    @Autowired
+    private HibernateProperties hibernateProperties;
+
     @Bean
     BookRepository bookRepository() {
         return new BookRepository();
@@ -72,7 +75,7 @@ public class JpaConfiguration {
         factoryBean.setDataSource(dataSource());
         factoryBean.setPackagesToScan(new String[] { packageToScan });
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-        factoryBean.setJpaProperties(hibernateProperties().getProperties());
+        factoryBean.setJpaProperties(hibernateProperties.getProperties());
         return factoryBean;
     }
 
@@ -83,14 +86,6 @@ public class JpaConfiguration {
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         return hibernateJpaVendorAdapter;
-    }
-
-    /*
-     * Hibernateの設定を有効化する
-     */
-    @Bean
-    public HibernateProperties hibernateProperties() {
-        return new HibernateProperties();
     }
 
     @Bean(name = "transactionManager")
