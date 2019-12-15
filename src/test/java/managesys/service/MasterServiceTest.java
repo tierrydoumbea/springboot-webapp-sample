@@ -3,6 +3,7 @@ package managesys.service;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,8 +80,10 @@ public class MasterServiceTest {
     public void getCategory() {
         List<Category> list = Category.findAll(bookRepository);
 
-        Category c = masterService.getCategory(list.get(0).getId());
-        assertEquals(c.getName(), "c1");
+        Optional<Category> optc = masterService.getCategory(list.get(0).getId());
+
+        assertTrue(optc.isPresent());
+        assertEquals(optc.get().getName(), "c1");
     }
 
     @Test
@@ -114,7 +117,9 @@ public class MasterServiceTest {
     public void getFormat() {
         List<Format> list = Format.findAll(bookRepository);
 
-        Format f = masterService.getFormat(list.get(0).getId());
-        assertEquals(f.getName(), "f1");
+        Optional<Format> optf = masterService.getFormat(list.get(0).getId());
+
+        assertTrue(optf.isPresent());
+        assertEquals(optf.get().getName(), "f1");
     }
 }

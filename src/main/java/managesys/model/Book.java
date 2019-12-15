@@ -1,6 +1,7 @@
 package managesys.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -89,8 +90,8 @@ public class Book {
         this.id = id;
     }
 
-    public static Book findById(AbstractRepository repo, int id) {
-        return repo.findById(Book.class, id).orElse(null);
+    public static Optional<Book> findById(AbstractRepository repo, int id) {
+        return repo.findById(Book.class, id);
     }
 
     public void save(AbstractRepository repo) {

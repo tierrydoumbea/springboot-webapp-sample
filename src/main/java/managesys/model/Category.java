@@ -1,6 +1,7 @@
 package managesys.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,8 +47,8 @@ public class Category {
         this.name = name;
     }
 
-    public static Category findById(AbstractRepository repo, int id) {
-        return repo.findById(Category.class, id).orElse(null);
+    public static Optional<Category> findById(AbstractRepository repo, int id) {
+        return repo.findById(Category.class, id);
     }
 
     public static List<Category> findAll(AbstractRepository repo) {
@@ -58,10 +59,10 @@ public class Category {
         repo.save(Category.class, this);
     }
 
-    public static Category findByName(AbstractRepository repo, String name) {
+    public static Optional<Category> findByName(AbstractRepository repo, String name) {
         Specification<Category> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
             return cb.equal(root.get("name"), name);
         };
-        return repo.findOne(Category.class, spec).orElse(null);
+        return repo.findOne(Category.class, spec);
     }
 }

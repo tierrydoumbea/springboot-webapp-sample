@@ -51,10 +51,8 @@ public class BookController {
     @PostMapping("/delete")
     @ResponseBody
     public Book deleteBook(@Valid @RequestBody Book book) {
-        Book entity = service.findById(book.getId());
-        service.deleteBook(entity);
-
-        return entity;
+        service.deleteBook(book);
+        return book;
     }
 
     @GetMapping("/search")

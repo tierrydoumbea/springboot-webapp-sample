@@ -147,7 +147,6 @@ public class BookControllerTest extends WebTestSupport {
     @Test
     public void deleteBook() throws JsonProcessingException {
         Book book = bookList.get(2);
-        when(bookService.findById(anyInt())).thenReturn(book);
         doNothing().when(bookService).deleteBook(any(Book.class));
 
         ResponseEntity<Object> res = post("/api/book/delete", mapper.writeValueAsString(book));

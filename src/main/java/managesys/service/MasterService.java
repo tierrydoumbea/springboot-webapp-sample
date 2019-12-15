@@ -24,19 +24,15 @@ public class MasterService {
 
     @Transactional
     public void registerCategory(Category category) {
-        if (!isExistCategory(category)) {
+        Optional<Category> c = Category.findByName(bookRepository, category.getName());
+        if (!c.isPresent()) {
             category.save(bookRepository);
         }
     }
 
     @Transactional
-    public Category getCategory(int id) {
+    public Optional<Category> getCategory(int id) {
         return Category.findById(bookRepository, id);
-    }
-
-    private boolean isExistCategory(Category category) {
-        Category c = Category.findByName(bookRepository, category.getName());
-        return Optional.ofNullable(c).isPresent();
     }
 
     @Transactional
@@ -46,18 +42,15 @@ public class MasterService {
 
     @Transactional
     public void registerFormat(Format format) {
-        if (!isExistFormat(format)) {
+        Optional<Format> f = Format.findByName(bookRepository, format.getName());
+        if (!f.isPresent()) {
             format.save(bookRepository);
         }
     }
 
     @Transactional
-    public Format getFormat(int id) {
+    public Optional<Format> getFormat(int id) {
         return Format.findById(bookRepository, id);
     }
 
-    private boolean isExistFormat(Format format) {
-        Format f = Format.findByName(bookRepository, format.getName());
-        return Optional.ofNullable(f).isPresent();
-    }
 }

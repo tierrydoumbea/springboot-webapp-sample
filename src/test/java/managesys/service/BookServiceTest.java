@@ -2,6 +2,8 @@ package managesys.service;
 
 import static org.junit.Assert.*;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,21 +68,6 @@ public class BookServiceTest {
 
     @Test
     @Transactional
-    public void findById() {
-        bookRepository.em().clear();
-
-        // データを検索する。
-        Book book = bookService.findById(books[1].getId());
-
-        // 期待通りのデータが検出されたことを確認する。
-        assertEquals(book.getTitle(), "test2");
-        assertEquals(book.getIsbn(), "223-123-123-1");
-        assertEquals(book.getCategory().getName(), "c1");
-        assertEquals(book.getFormat().getName(), "f1");
-    }
-
-    @Test
-    @Transactional
     public void saveBook() {
         // データを作成し保存する。
         Book b = new Book("test8", "823-123-123-1", c, f);
@@ -110,7 +97,11 @@ public class BookServiceTest {
         bookRepository.flush();
 
         // データが更新されたことを確認する。
-        Book book = Book.findById(bookRepository, books[2].getId());
+        Optional<Book> optBook = Book.findById(bookRepository, books[2].getId());
+
+        assertTrue(optBook.isPresent());
+
+        Book book = optBook.get();
         assertEquals(book.getTitle(), "test31");
         assertEquals(book.getIsbn(), "312-123-123-1");
         assertEquals(book.getCategory().getName(), "c1");
@@ -121,14 +112,14 @@ public class BookServiceTest {
     @Transactional
     public void deleteBook() {
         // データが存在することを確認する。
-        assertNotNull(Book.findById(bookRepository, books[6].getId()));
+        assertTrue(Book.findById(bookRepository, books[6].getId()).isPresent());
 
         bookService.deleteBook(books[6]);
 
         bookRepository.flush();
 
         // データが存在しないことを確認する。
-        assertNull(Book.findById(bookRepository, books[6].getId()));
+        assertFalse(Book.findById(bookRepository, books[6].getId()).isPresent());
     }
 
     @Test

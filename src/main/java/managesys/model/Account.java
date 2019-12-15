@@ -1,6 +1,7 @@
 package managesys.model;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,11 +72,11 @@ public class Account {
         this.name = name;
     }
 
-    public static Account findByUsername(AbstractRepository repo, String name) {
+    public static Optional<Account> findByUsername(AbstractRepository repo, String name) {
         Specification<Account> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
             return cb.equal(root.get("name"), name);
         };
-        return repo.findOne(Account.class, spec).orElse(null);
+        return repo.findOne(Account.class, spec);
     }
 
     public void save(AbstractRepository repo) {

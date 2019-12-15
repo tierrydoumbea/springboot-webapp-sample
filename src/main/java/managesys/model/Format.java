@@ -1,6 +1,7 @@
 package managesys.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,8 +47,8 @@ public class Format {
         this.name = name;
     }
 
-    public static Format findById(AbstractRepository repo, int id) {
-        return repo.findById(Format.class, id).orElse(null);
+    public static Optional<Format> findById(AbstractRepository repo, int id) {
+        return repo.findById(Format.class, id);
     }
 
     public static List<Format> findAll(AbstractRepository repo) {
@@ -58,11 +59,11 @@ public class Format {
         repo.save(Format.class, this);
     }
 
-    public static Format findByName(AbstractRepository repo, String name) {
+    public static Optional<Format> findByName(AbstractRepository repo, String name) {
         Specification<Format> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
             return cb.equal(root.get("name"), name);
         };
-        return repo.findOne(Format.class, spec).orElse(null);
+        return repo.findOne(Format.class, spec);
     }
 
 }

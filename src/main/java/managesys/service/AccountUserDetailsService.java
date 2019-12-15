@@ -1,7 +1,5 @@
 package managesys.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +19,7 @@ public class AccountUserDetailsService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = Optional.ofNullable(Account.findByUsername(bookRepository, username))
+        Account account = Account.findByUsername(bookRepository, username)
                                 .orElseThrow(() -> new UsernameNotFoundException("user not found."));
 
         return new AccountUserDetails(account);
