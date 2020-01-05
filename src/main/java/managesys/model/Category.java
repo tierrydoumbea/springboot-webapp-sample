@@ -9,9 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
-
 import managesys.repository.AbstractRepository;
 
 @Entity(name = "CATEGORY_MASTER")
@@ -24,6 +21,12 @@ public class Category {
     private String name;
 
     public Category() {
+    }
+
+    public Category(int id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
     }
 
     public Category(String name) {
@@ -60,9 +63,6 @@ public class Category {
     }
 
     public static Optional<Category> findByName(AbstractRepository repo, String name) {
-        Specification<Category> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-            return cb.equal(root.get("name"), name);
-        };
-        return repo.findOne(Category.class, spec);
+        return repo.findOne("from CATEGORY_MASTER  where name = ?1", Category.class, name);
     }
 }

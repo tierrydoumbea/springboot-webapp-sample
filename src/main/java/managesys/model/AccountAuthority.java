@@ -18,7 +18,7 @@ public class AccountAuthority implements GrantedAuthority {
     private int id;
 
     @NotNull
-    private String authority;
+    private String authority = "";
 
     public AccountAuthority() {}
 

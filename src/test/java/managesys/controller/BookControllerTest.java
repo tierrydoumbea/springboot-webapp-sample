@@ -28,6 +28,7 @@ import managesys.RequestUrl;
 import managesys.UinitTestSupport;
 import managesys.WebTestSupport;
 import managesys.model.Book;
+import managesys.model.dto.BookDto;
 import managesys.service.BookService;
 
 @RunWith(SpringRunner.class)
@@ -66,7 +67,7 @@ public class BookControllerTest extends WebTestSupport {
     @Test
     public void saveBookWithSuccess() throws IOException {
         Book book = bookList.get(0);
-        doNothing().when(bookService).saveBook(any(Book.class));
+        when(bookService.saveBook(any())).thenReturn(book);
 
         ResponseEntity<Object> res = post("/api/book/new", mapper.writeValueAsString(book));
 
@@ -75,13 +76,13 @@ public class BookControllerTest extends WebTestSupport {
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_0");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-0");
 
-        verify(bookService, atLeastOnce()).saveBook(any(Book.class));
+        verify(bookService, atLeastOnce()).saveBook(any(BookDto.RegBook.class));
     }
 
     @Test
     public void saveBookWithFailure() throws JsonProcessingException {
         Book book = UinitTestSupport.generateValidBookData();
-        doNothing().when(bookService).saveBook(any(Book.class));
+        when(bookService.saveBook(any())).thenReturn(book);
 
         ResponseEntity<Object> res = post("/api/book/new", mapper.writeValueAsString(book));
 
@@ -90,13 +91,13 @@ public class BookControllerTest extends WebTestSupport {
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "書籍タイトルは3文字以上，50文字以下で入力してください");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "ISBNは10文字以上，20文字以下で入力してください");
 
-        verify(bookService, never()).saveBook(any(Book.class));
+        verify(bookService, never()).saveBook(any(BookDto.RegBook.class));
     }
 
     @Test
     public void updateBookWithSuccess() throws JsonProcessingException {
         Book book = bookList.get(0);
-        doNothing().when(bookService).updateBook(any(Book.class));
+        when(bookService.updateBook(any())).thenReturn(book);
 
         ResponseEntity<Object> res = post("/api/book/edit", mapper.writeValueAsString(book));
 
@@ -105,13 +106,13 @@ public class BookControllerTest extends WebTestSupport {
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_0");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-0");
 
-        verify(bookService, atLeastOnce()).updateBook(any(Book.class));
+        verify(bookService, atLeastOnce()).updateBook(any(BookDto.ChgBook.class));
     }
 
     @Test
     public void updateBookWithFailure() throws JsonProcessingException {
         Book book = UinitTestSupport.generateValidBookData();
-        doNothing().when(bookService).updateBook(any(Book.class));
+        when(bookService.updateBook(any())).thenReturn(book);
 
         ResponseEntity<Object> res = post("/api/book/edit", mapper.writeValueAsString(book));
 
@@ -120,7 +121,7 @@ public class BookControllerTest extends WebTestSupport {
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "書籍タイトルは3文字以上，50文字以下で入力してください");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "ISBNは10文字以上，20文字以下で入力してください");
 
-        verify(bookService, never()).updateBook(any(Book.class));
+        verify(bookService, never()).updateBook(any(BookDto.ChgBook.class));
     }
 
     @Test
@@ -147,7 +148,7 @@ public class BookControllerTest extends WebTestSupport {
     @Test
     public void deleteBook() throws JsonProcessingException {
         Book book = bookList.get(2);
-        doNothing().when(bookService).deleteBook(any(Book.class));
+        when(bookService.deleteBook(any())).thenReturn(book);
 
         ResponseEntity<Object> res = post("/api/book/delete", mapper.writeValueAsString(book));
 
@@ -156,6 +157,6 @@ public class BookControllerTest extends WebTestSupport {
         assertEquals(JsonPath.read(res.getBody(), "$['title']"), "Test_2");
         assertEquals(JsonPath.read(res.getBody(), "$['isbn']"), "123-234-567-2");
 
-        verify(bookService, atLeastOnce()).deleteBook(any(Book.class));
+        verify(bookService, atLeastOnce()).deleteBook(any(BookDto.ChgBook.class));
     }
 }

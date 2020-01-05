@@ -11,9 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import managesys.repository.AbstractRepository;
@@ -73,10 +70,7 @@ public class Account {
     }
 
     public static Optional<Account> findByUsername(AbstractRepository repo, String name) {
-        Specification<Account> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-            return cb.equal(root.get("name"), name);
-        };
-        return repo.findOne(Account.class, spec);
+        return repo.findOne("from ACCOUNT_MASTER where name = ?1", Account.class, name);
     }
 
     public void save(AbstractRepository repo) {

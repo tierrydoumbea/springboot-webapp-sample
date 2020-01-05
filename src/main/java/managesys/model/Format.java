@@ -26,6 +26,12 @@ public class Format {
     public Format() {
     }
 
+    public Format(int id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
+
     public Format(String name) {
         super();
         this.name = name;
@@ -60,10 +66,7 @@ public class Format {
     }
 
     public static Optional<Format> findByName(AbstractRepository repo, String name) {
-        Specification<Format> spec = StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
-            return cb.equal(root.get("name"), name);
-        };
-        return repo.findOne(Format.class, spec);
+        return repo.findOne("from FORMAT_MASTER where name = ?1", Format.class, name);
     }
 
 }

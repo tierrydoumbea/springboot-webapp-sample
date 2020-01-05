@@ -108,7 +108,7 @@ public abstract class AbstractRepository {
         }
 
         applyAndBind(getQueryString(DELETE_ALL_QUERY_STRING, RepositoryUtils.entityInformation(em(), clazz).getEntityName()), entities, em())
-                .executeUpdate();
+        .executeUpdate();
     }
 
     /*
@@ -141,6 +141,21 @@ public abstract class AbstractRepository {
     }
 
     /**
+     * JPQLによる検索でデータを1件取得します。
+     * @param jpql JPQL文
+     * @param clazz     エンティティクラス
+     * @param args パラメータ(?1, ?2...で記述)
+     * @return 取得したエンティティオブジェクト
+     */
+    public <T> Optional<T> findOne(String jpql, Class<T> clazz, Object... args) {
+        try {
+            return Optional.of(bindArgs(em().createQuery(jpql, clazz), args).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
      * JPQLによる検索でデータを取得します。(ソート利用可)
      * @param jpql JPQL文
      * @param clazz     エンティティクラス
@@ -164,7 +179,7 @@ public abstract class AbstractRepository {
     public <T> Page<T> find(String jpql, Class<T> clazz, Pageable pageable, Object... args) {
         TypedQuery<T> query = bindArgs(em().createQuery(QueryUtils.applySorting(jpql, pageable.getSort()), clazz), args);
         return isUnpaged(pageable) ? new PageImpl<T>(query.getResultList())
-                  : readPage(query, clazz, pageable, null);
+                : readPage(query, clazz, pageable, null);
     }
 
     /**
@@ -176,7 +191,7 @@ public abstract class AbstractRepository {
     public <T> TypedQuery<T> bindArgs(TypedQuery<T> query, Object... args) {
         if (args != null) {
             for (int i = 0; i < args.length; i++) {
-                 query.setParameter(i + 1, args[i]);
+                query.setParameter(i + 1, args[i]);
             }
         }
         return query;
@@ -513,8 +528,7 @@ public abstract class AbstractRepository {
             return query;
         }
 
-        LockModeType type = metadata.getLockModeType();
-        TypedQuery<S> toReturn = type == null ? query : query.setLockMode(type);
+        TypedQuery<S> toReturn = query.setLockMode(metadata.getLockModeType());
 
         return toReturn;
     }

@@ -110,9 +110,9 @@ public class Book {
         return repo.find("select b from BOOK b left join fetch b.category left join fetch b.format", Book.class, pageable);
     }
 
-    public static Book findByIsbn(AbstractRepository repo, String isbn) {
+    public static Optional<Book> findByIsbn(AbstractRepository repo, String isbn) {
         String jpql = "from BOOK b left join fetch b.category left join fetch b.format where b.isbn = ?1";
-        return repo.find(jpql, Book.class, isbn).get(0);
+        return repo.findOne(jpql, Book.class, isbn);
     }
 
     public static Page<Book> findByTitle(AbstractRepository repo, String title, Pageable pageable) {

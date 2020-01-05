@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import managesys.model.Book;
+import managesys.model.dto.BookDto.ChgBook;
+import managesys.model.dto.BookDto.RegBook;
 import managesys.service.BookService;
 
 @RestController
@@ -36,23 +38,20 @@ public class BookController {
 
     @PostMapping("/new")
     @ResponseBody
-    public Book saveBook(@Valid @RequestBody Book book) {
-        service.saveBook(book);
-        return book;
+    public Book saveBook(@Valid @RequestBody RegBook book) {
+        return service.saveBook(book);
     }
 
     @PostMapping("/edit")
     @ResponseBody
-    public Book updateBook(@Valid @RequestBody Book book) {
-        service.updateBook(book);
-        return book;
+    public Book updateBook(@Valid @RequestBody ChgBook book) {
+        return service.updateBook(book);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public Book deleteBook(@Valid @RequestBody Book book) {
-        service.deleteBook(book);
-        return book;
+    public Book deleteBook(@Valid @RequestBody ChgBook book) {
+        return service.deleteBook(book);
     }
 
     @GetMapping("/search")

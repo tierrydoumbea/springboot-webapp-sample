@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import managesys.model.Book;
 import managesys.model.Category;
 import managesys.model.Format;
+import managesys.model.dto.BookDto.ChgBook;
+import managesys.model.dto.BookDto.RegBook;
 import managesys.report.AllListPdfReporter;
 import managesys.repository.BookRepository;
 
@@ -26,19 +28,22 @@ public class BookService {
     protected ResourceLoader resourceLoader;
 
     @Transactional
-    public void saveBook(Book book) {
-        Optional<Category> category = Category.findById(bookRepository, book.getCategory().getId());
-        Optional<Format> format = Format.findById(bookRepository, book.getFormat().getId());
+    public Book saveBook(RegBook book) {
+        Optional<Category> category = Category.findById(bookRepository, book.getCategoryId());
+        Optional<Format> format = Format.findById(bookRepository, book.getFormatId());
 
+        Book entity = book.create();
         if (category.isPresent() && format.isPresent()) {
-            book.setCategory(category.get());
-            book.setFormat(format.get());
-            book.save(bookRepository);
+            entity.setCategory(category.get());
+            entity.setFormat(format.get());
+            entity.save(bookRepository);
+            return entity;
         }
+        return null;
     }
 
     @Transactional
-    public void updateBook(Book book) {
+    public Book updateBook(ChgBook book) {
         Optional<Book> optBook = Book.findById(bookRepository, book.getId());
 
         if (optBook.isPresent()) {
@@ -46,23 +51,28 @@ public class BookService {
             entity.setTitle(book.getTitle());
             entity.setIsbn(book.getIsbn());
 
-            Optional<Category> category = Category.findById(bookRepository, book.getCategory().getId());
-            Optional<Format> format = Format.findById(bookRepository, book.getFormat().getId());
+            Optional<Category> category = Category.findById(bookRepository, book.getCategoryId());
+            Optional<Format> format = Format.findById(bookRepository, book.getFormatId());
 
             if (category.isPresent() && format.isPresent()) {
                 entity.setCategory(category.get());
                 entity.setFormat(format.get());
                 entity.save(bookRepository);
             }
+            return entity;
         }
+        return null;
     }
 
     @Transactional
-    public void deleteBook(Book book) {
+    public Book deleteBook(ChgBook book) {
         Optional<Book> optBook = Book.findById(bookRepository, book.getId());
         if (optBook.isPresent()) {
-            book.delete(bookRepository);
+            Book entity = optBook.get();
+            entity.delete(bookRepository);
+            return entity;
         }
+        return null;
     }
 
     @Transactional
@@ -72,7 +82,11 @@ public class BookService {
 
     @Transactional
     public Book findBookByIsbn(String isbn) {
-        return Book.findByIsbn(bookRepository, isbn);
+        Optional<Book> optBook = Book.findByIsbn(bookRepository, isbn);
+        if (optBook.isPresent()) {
+            return optBook.get();
+        }
+        return null;
     }
 
     @Transactional

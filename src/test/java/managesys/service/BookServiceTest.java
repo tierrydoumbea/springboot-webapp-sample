@@ -18,6 +18,8 @@ import configuration.JpaTestConfiguration;
 import managesys.model.Book;
 import managesys.model.Category;
 import managesys.model.Format;
+import managesys.model.dto.BookDto.ChgBook;
+import managesys.model.dto.BookDto.RegBook;
 import managesys.repository.BookRepository;
 
 @RunWith(SpringRunner.class)
@@ -70,7 +72,7 @@ public class BookServiceTest {
     @Transactional
     public void saveBook() {
         // データを作成し保存する。
-        Book b = new Book("test8", "823-123-123-1", c, f);
+        RegBook b = new RegBook("test8", "823-123-123-1", c.getId(), f.getId());
 
         bookService.saveBook(b);
 
@@ -91,8 +93,9 @@ public class BookServiceTest {
         Book b = books[2];
         b.setTitle("test31");
         b.setIsbn("312-123-123-1");
+        ChgBook chgBook = new ChgBook(b.getId(), b.getTitle(), b.getIsbn(), b.getCategory().getId(), b.getFormat().getId());
 
-        bookService.updateBook(b);
+        bookService.updateBook(chgBook);
 
         bookRepository.flush();
 
@@ -114,7 +117,10 @@ public class BookServiceTest {
         // データが存在することを確認する。
         assertTrue(Book.findById(bookRepository, books[6].getId()).isPresent());
 
-        bookService.deleteBook(books[6]);
+        Book b = books[6];
+        ChgBook chgBook = new ChgBook(b.getId(), b.getTitle(), b.getIsbn(), b.getCategory().getId(), b.getFormat().getId());
+
+        bookService.deleteBook(chgBook);
 
         bookRepository.flush();
 
