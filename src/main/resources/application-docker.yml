@@ -33,8 +33,8 @@ server:
 extension:
   security.enabled: true          # ログイン認証機能を有効にする
   master.generator.enabled: true  # マスターデータの生成
-  test.generator.enabled: true    # テストデータの生成
-  cors.enabled: true              # CORS制約の設定
+  test.generator.enabled: false   # テストデータの生成
+  cors.enabled: false             # CORS制約の設定
   docs.restapi.enabled: false     # RestAPI仕様書を有効にする
  
 # Spring Actuatorの設定
