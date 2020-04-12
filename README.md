@@ -21,6 +21,9 @@ Perform the following steps:
     ```
     {"status":"UP","details":{"diskSpace":{"status":"UP","details":{"total":253796282368,"free":202889191424,"threshold":10485760}},"db":{"status":"UP","details":{"database":"H2","hello":1}}}}
     ```
+1. Log in with the following username and password.
+    - username : ``test``
+    - password : ``test``
 
 ## Test
 Perform the following steps:
