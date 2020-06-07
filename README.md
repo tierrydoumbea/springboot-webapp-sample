@@ -98,13 +98,13 @@ This sample uses the following libraries.
 
 |Library Name|Version|
 |:---|:---:|
-|spring-boot-starter-web|2.2.0|
-|spring-boot-starter-security|2.2.0|
-|spring-boot-starter-data-jpa|2.2.0|
-|spring-boot-starter-actuator|2.2.0|
-|spring-boot-starter-logging|2.2.0|
-|spring-boot-starter-aop|2.2.0|
-|spring-boot-starter-test|2.2.0|
+|spring-boot-starter-web|2.3.0|
+|spring-boot-starter-security|2.3.0|
+|spring-boot-starter-data-jpa|2.3.0|
+|spring-boot-starter-actuator|2.3.0|
+|spring-boot-starter-logging|2.3.0|
+|spring-boot-starter-aop|2.3.0|
+|spring-boot-starter-test|2.3.0|
 |pdfbox|2.0.14|
 |springfox-swagger2|2.7.0|
 |h2|1.4.+|
