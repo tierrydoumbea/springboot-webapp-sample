@@ -39,7 +39,7 @@ pipeline {
                 script{
                     withSonarQubeEnv('sonarqube') {
                            
-                            sh 'mvn sonarqube'
+                            sh 'gradle sonarqube'
                     }
 
                    
