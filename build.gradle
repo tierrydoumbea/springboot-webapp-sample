@@ -34,9 +34,4 @@ dependencies {
 wrapper {
     gradleVersion = '6.4.1'
 }
-sonarqube {
-    properties {
-        property 'sonar.host.url', 'http://34.125.201.58:9000'
-        property 'sonar.login', '******'
-    }
-}
+
