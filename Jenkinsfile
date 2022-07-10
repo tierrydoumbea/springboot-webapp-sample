@@ -14,24 +14,24 @@ pipeline {
             steps {
              
             
-                dir("spring-boot-app"){
+                
                 sh "gradle  clean"
 
             }
 
             
-            }
+            
         }
         stage('Build') {
             steps {
               
                 
-               dir("spring-boot-app"){
+               
                 sh "gradle  build"
 
             }
 
-            } 
+             
         }
          stage("sonar quality check"){
           
