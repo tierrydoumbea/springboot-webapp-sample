@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'org.sonarqube' version '3.3'
 }
 
 group = 'springboot-webapp-sample'
@@ -35,3 +36,9 @@ wrapper {
     gradleVersion = '6.4.1'
 }
 
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'http://34.125.201.58:9000'
+        property 'sonar.login', '******'
+    }
+}
