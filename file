@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        gradle "gradle"
+        gradle "gradle-ronnie"
     }
     environment{
         VERSION = "${env.BUILD_ID}"
         IMAGE_NAME = "devopstrainingschool/java-gradle"
     }
     stages {
-        stage('clean') {
+        stage('gradle clean') {
             
             steps {
              
@@ -22,7 +22,7 @@ pipeline {
             
             
         }
-        stage('Build') {
+        stage('gradle Build') {
             steps {
               
                 
@@ -66,7 +66,7 @@ pipeline {
       
       steps {
        
-       withDockerRegistry([ credentialsId: "Docker_hub", url: "https://index.docker.io/v1/" ]) {
+       withDockerRegistry([ credentialsId: "Docker_creds", url: "https://index.docker.io/v1/" ]) {
        sh 'docker build . -t $IMAGE_NAME:$VERSION -f Dockerfile'
        sh 'docker push $IMAGE_NAME:$VERSION'
         
