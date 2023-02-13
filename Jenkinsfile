@@ -22,7 +22,14 @@ pipeline {
   
   }
   
+    stage ( 'Docker Push' ) {
+   steps {
+    withDockerRegistry([ credentialsId: "Awa", url: "https://index.docker.io/v1/" ]) {
+    sh " docker push thierrydoumbea/javagradle "
+    }
+  }
   
+  }
   
   }
 
